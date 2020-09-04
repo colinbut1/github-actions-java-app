@@ -11,9 +11,9 @@ jobs:
 
       - name: install deps
         run: |
-          apt update
-          apt upgrade
-          apt install openjdk-14-jdk
+          sudo apt update
+          sudo apt upgrade
+          sudo apt install openjdk-14-jdk
 
       - name: build jar
         run: ./mvnw -Dmaven.test.skip=true package
@@ -24,4 +24,13 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: colinbut/github-actions-java-app
+          tag_with_ref: true
+
+      - name: push to github packages
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: colinbut1/github-actions-java-app/github-actions-java-app
           tag_with_ref: true
