@@ -24,3 +24,9 @@ jobs:
 
       - name: package artifact
         run: ./mvnw package
+
+      - name: deploy artifact
+        uses: benc-uk/workflow-dispatch@v1
+          with:
+            workflow: Deploy
+            token: ${{ secrets.PAT_TOKEN }}
