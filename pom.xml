@@ -13,6 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>github-actions-java-app</name>
 	<description>Github Actions demo with a Java App</description>
+	<packaging>jar</packaging>
 
 	<properties>
 		<java.version>14</java.version>
@@ -47,6 +48,12 @@
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 

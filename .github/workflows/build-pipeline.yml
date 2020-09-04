@@ -1,0 +1,25 @@
+---
+name: Build
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: compile
+        run: mvn clean compile
+
+      - name: unit test
+        run: echo running unit test
+
+      - name: integration test
+        run: mvn test
+
+      - name: package artifact
+        run: mvn package
