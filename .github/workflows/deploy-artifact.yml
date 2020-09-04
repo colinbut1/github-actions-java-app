@@ -9,6 +9,15 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
+      - name: install deps
+        run: |
+          apt update
+          apt upgrade
+          apt install openjdk-14-jdk
+
+      - name: build jar
+        run: ./mvnw -Dmaven.test.skip=true package
+
       - name: push to docker hub
         uses: docker/build-push-action@v1
         with:

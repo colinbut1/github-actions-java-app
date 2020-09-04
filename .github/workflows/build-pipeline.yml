@@ -23,7 +23,7 @@ jobs:
         run: ./mvnw test
 
       - name: package artifact
-        run: ./mvnw package
+        run: ./mvnw -Dmaven.test.skip=true package
 
       - name: deploy artifact
         uses: benc-uk/workflow-dispatch@v1.1
