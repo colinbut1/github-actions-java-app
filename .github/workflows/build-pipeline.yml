@@ -8,6 +8,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: openjdk:14.0.2-jdk-slim
     steps:
       - name: checkout
         uses: actions/checkout@v2
