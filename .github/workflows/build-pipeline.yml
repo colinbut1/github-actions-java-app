@@ -13,13 +13,13 @@ jobs:
         uses: actions/checkout@v2
 
       - name: compile
-        run: mvn clean compile
+        run: ./mvnw clean compile
 
       - name: unit test
         run: echo running unit test
 
       - name: integration test
-        run: mvn test
+        run: ./mvnw test
 
       - name: package artifact
-        run: mvn package
+        run: ./mvnw package
