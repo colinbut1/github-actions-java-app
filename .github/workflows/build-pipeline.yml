@@ -10,10 +10,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: openjdk:14.0.2-jdk-slim
+    #container: openjdk:14.0.2-jdk-slim
     steps:
       - name: checkout
         uses: actions/checkout@v2
+
+      - name: install deps
+        uses: actions/setup-java@v1
+        with:
+          java-version: 14
 
       - name: compile
         run: ./mvnw clean compile
@@ -28,7 +33,9 @@ jobs:
         run: ./mvnw -Dmaven.test.skip=true package
 
       - name: deploy jar artifact (to Github Packages)
-        run: ./mvnw deploy
+        run: ./mvnw -Dmaven.test.skip=true -B deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: push to docker hub
         uses: docker/build-push-action@v1
