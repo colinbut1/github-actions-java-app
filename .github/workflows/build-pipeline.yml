@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+    paths-ignore:
+      - '**.md'
 
 jobs:
   build:
@@ -25,8 +27,8 @@ jobs:
       - name: package jar artifact
         run: ./mvnw -Dmaven.test.skip=true package
 
-      - name: deploy jar artifact
-        run: echo placeholder
+      - name: deploy jar artifact (to Github Packages)
+        run: ./mvnw deploy
 
       - name: push to docker hub
         uses: docker/build-push-action@v1
@@ -36,7 +38,7 @@ jobs:
           repository: colinbut/github-actions-java-app
           tag_with_ref: true
 
-      - name: push to github containe registry
+      - name: push to github container registry
         uses: docker/build-push-action@v1
         with:
           username: ${{ github.actor }}
