@@ -22,11 +22,26 @@ jobs:
       - name: integration test
         run: ./mvnw test
 
-      - name: package artifact
+      - name: package jar artifact
         run: ./mvnw -Dmaven.test.skip=true package
 
-      - name: deploy artifact
-        uses: benc-uk/workflow-dispatch@v1.1
+      - name: deploy jar artifact
+        run: echo placeholder
+
+      - name: push to docker hub
+        uses: docker/build-push-action@v1
         with:
-          workflow: Deploy
-          token: ${{ secrets.PAT_TOKEN }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: colinbut/github-actions-java-app
+          tag_with_ref: true
+
+      - name: push to github containe registry
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.PAT_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: colinbut1/github-actions-java-app/github-actions-java-app
+          tag_with_ref: true
+
